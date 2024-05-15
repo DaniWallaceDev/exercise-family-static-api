@@ -9,11 +9,33 @@ update this file to implement the following already declared methods:
 from random import randint
 
 class FamilyStructure:
-    def __init__(self, last_name):
+    def __init__(self, last_name,):
         self.last_name = last_name
 
         # example list of members
-        self._members = []
+        self._members = [
+            {
+            "age": 33,
+            "first_name": "John",
+            "id": self._generateId(),
+            "last_name": last_name,
+            "lucky_numbers": [7, 13, 22]
+            },
+            {
+            "age": 35,
+            "first_name": "Jane",
+            "id": self._generateId(),
+            "last_name": last_name,
+            "lucky_numbers": [10, 14, 3]
+            },
+            {
+            "age": 5,
+            "first_name": "Jimmy",
+            "id": self._generateId(),
+            "last_name": last_name,
+            "lucky_numbers": [1]
+            }
+        ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -21,15 +43,31 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        if "id" in member :
+            id = member["id"]
+        else : id = self._generateId()
+        member_update = {
+            "id": id,
+            "first_name": member["first_name"],
+            "last_name": self.last_name,
+            "age": member["age"],
+            "lucky_numbers": member["lucky_numbers"]
+        }
+        self._members.append(member_update)
+        return member_update
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
+        for member in self._members:
+            if member['id'] == id:
+                self._members.remove(member) 
+                return True
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
+        for member in self._members:
+            if member['id'] == id:
+                return member
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
